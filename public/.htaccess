@@ -1,0 +1,40 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # allow social media crawlers to work by redirecting them to a server-rendered static version on the page
+    RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit/[0-9]|Twitterbot|Pinterest|linkedinbot|WhatsApp|Viber|SkypeUriPreview|Google.*snippet)
+    RewriteRule am/(.*) https://Picadailys-Support.com/anonymous_message_crawl.php?other=$1 [R=301,L]
+    
+    # allow social media crawlers to work by redirecting them to a server-rendered static version on the page
+    RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit/[0-9]|Twitterbot|Pinterest|linkedinbot|WhatsApp|Viber|SkypeUriPreview|Google.*snippet)
+    RewriteRule g/(.*) https://Picadailys-Support.com/ghost_mode_crawl.php?username=$0 [R=301,L]
+
+    # allow social media crawlers to work by redirecting them to a server-rendered static version on the page
+    RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit/[0-9]|Twitterbot|Pinterest|linkedinbot|WhatsApp|Viber|SkypeUriPreview|Google.*snippet)
+    RewriteRule poll/(.*) https://Picadailys-Support.com/poll_crawl.php?other=$1 [R=301,L]
+
+    # allow social media crawlers to work by redirecting them to a server-rendered static version on the page
+    RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit/[0-9]|Twitterbot|Pinterest|linkedinbot|WhatsApp|Viber|SkypeUriPreview|Google.*snippet)
+    RewriteRule feedback/(.*) https://Picadailys-Support.com/feedback_crawl.php?other=$1 [R=301,L]
+    
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-l
+    RewriteRule . /index.html [L]
+    
+    #Remove WWW
+    RewriteEngine on
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^(.*)$ http://%1%{REQUEST_URI} [R=301,QSA,NC,L]
+    
+    # ensure https
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+<IfModule mod_mime.c>
+   # Manifest file
+   AddType application/manifest+json webmanifest
+</IfModule>

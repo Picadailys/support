@@ -1,0 +1,50 @@
+{
+  "name": "Picadailys-Support",
+  "private": true,
+  "version": "1.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@carbon/icons-react": "^11.45.0",
+    "@charkour/react-reactions": "^0.11.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "axios": "^1.7.2",
+    "chart.js": "^4.4.7",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "clipboard-copy": "^4.0.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.3.24",
+    "js-cookie": "^3.0.5",
+    "moment": "^2.30.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.1",
+    "react-pin-input": "^1.3.1",
+    "react-router": "^6.26.0",
+    "react-router-dom": "^6.25.1",
+    "react-topbar-progress-indicator": "^4.1.1",
+    "swiper": "^11.1.14"
+  },
+  "devDependencies": {
+    "@types/node": "^22.2.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "and": "^0.0.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "postcss": "^8.4.41",
+    "tailwindcss": "^3.4.9",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.4",
+    "vite-plugin-pwa": "^0.20.1"
+  }
+}
