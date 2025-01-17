@@ -18,10 +18,10 @@ const Dashboard = () => {
             icon2: <ChevronDown />,
             dropdown: true,
             subItems: [
-                { name: 'Dashboard', link: '/', customStyle: 'grey-color' },
-                { name: 'Channel', link: '/channel', customStyle: 'grey-color' },
-                { name: 'Tickets', link: '/tickets', customStyle: 'grey-color' },
-                { name: 'Chat Bot', link: '/chat/bot', customStyle: 'grey-color' },
+                { name: 'Dashboard', link: '/dashboard', customStyle: 'grey-color' },
+                { name: 'Channel', link: '/dashboard/channel', customStyle: 'grey-color' },
+                { name: 'Tickets', link: '/dashboard/tickets', customStyle: 'grey-color' },
+                { name: 'Chat Bot', link: '/dashboard/chat/bot', customStyle: 'grey-color' },
             ],
         },
         {
@@ -64,7 +64,7 @@ const Dashboard = () => {
                         {menuItems.map((item, index) => (
                             <div key={index} className="xui-mt-2 xui-mb-2 xui-font-sz-85">
                                 {item.isLink ? (
-                                    <NavLink to='/' className={`${item.customStyle} xui-text-dc-none xui-d-flex xui-flex-jc-space-between xui-flex-ai-center`} onClick={item.dropdown ? toggleDropdown : undefined}>
+                                    <NavLink to='/' className={`${item.customStyle} xui-text-dc-none xui-d-flex xui-flex-jc-space-between xui-flex-ai-center`} onClick={item.dropdown ? toggleDropdown : undefined} end>
                                         <div className="xui-d-flex xui-flex-ai-center xui-grid-gap-1">
                                             <span>{item.icon}</span>
                                             <span>{item.title}</span>
@@ -84,7 +84,7 @@ const Dashboard = () => {
                                 {item.dropdown && isSupportOpen && (
                                     <div className='xui-px-1-half sub-link-box'>
                                         {item.subItems.map((subItem, subIndex) => (
-                                            <NavLink key={subIndex} to={subItem.link} className={`link-box xui-p-half ${({ isActive }) => isActive ? 'active-link' : 'grey-color'}`}>
+                                            <NavLink key={subIndex} to={subItem.link} className={`link-box xui-p-half ${({ isActive }) => isActive ? 'active-link' : 'grey-color'}`} end>
                                                 <>
                                                     <div className="name xui-ml-half">
                                                         <span>{subItem.name}</span>

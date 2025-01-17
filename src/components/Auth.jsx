@@ -1,17 +1,13 @@
-import { Link } from "react-router-dom";
-import Logo from "../assets/images/logo.png";
-
 /* eslint-disable react/prop-types */
+import Logo3 from "../assets/images/logo3.png"
 const Auth = ({ children }) => {
     return (
         <>
             <section className="onboarding-main-section xui-pos-relative">
-                <div className="xui-text-center xui-lg-d-block xui-d-none xui-mb-3">
-                    <Link to='/' className="xui-d-inline-block xui-mb-half">
-                        <img src={Logo} className="xui-img-70" />
-                    </Link>
+                <div className="auth-section">
+                    {children}
                 </div>
-                {children}
+                <img src={Logo3} className="xui-img-800" />
             </section>
         </>
     )
