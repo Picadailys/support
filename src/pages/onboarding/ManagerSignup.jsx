@@ -55,7 +55,7 @@ const ManagerSignup = () => {
         }, (err) => {
             console.log(err);
             setIsDisabled(false);
-            setValidationErrMsg(err.response.status === 422 ? err.response.data.data[0].msg : err.response.data);
+            setValidationErrMsg(err.response.data.email[0] || err.response.data);
             window.xuiAnimeStart('errorAlert');
             setTimeout(() => {
                 window.xuiAnimeEnd('errorAlert');
@@ -72,13 +72,7 @@ const ManagerSignup = () => {
                 <div className="xui-form-box">
                     <label htmlFor="phone_number">Phone Number</label>
                     <input
-                        {...register('phone_number', {
-                            required: 'This field is required',
-                            pattern: {
-                                value: /^[0-9]{10,15}$/,
-                                message: 'Phone number must be 10–15 digits'
-                            }
-                        })}
+                        {...register('phone_number', {required: 'This field is required', pattern: {value: /^[0-9]{10,15}$/, message: 'Phone number must be 10–15 digits'}})}
                         type="tel"
                         name="phone_number"
                         id="phone_number"
