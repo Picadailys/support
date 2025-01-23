@@ -26,6 +26,7 @@ function App() {
 				<ScrollToTop />
 				<Routes>
 					<Route path="/" element={<Onboarding />}>
+						<Route path="" element={<Auth><Signin /></Auth>} />
 						<Route path="signup/:user_id" element={<Auth><Signup /></Auth>} />
 						<Route path="login" element={<Auth><Signin /></Auth>} />
 						<Route path="*" element={<h1>Not Found</h1>} />
