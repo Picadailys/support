@@ -19,6 +19,7 @@ import AgentSignup from './pages/onboarding/AgentSignup';
 import ManagerSignup from './pages/onboarding/ManagerSignup';
 import Onboarding from './components/Onboarding';
 import Signin from './pages/onboarding/Signin';
+import OTPSignup from './pages/onboarding/OTPSignup';
 
 function App() {
 	return (
@@ -29,6 +30,7 @@ function App() {
 					<Route path="/" element={<Onboarding />}>
 						<Route path="" element={<Auth><Signin /></Auth>} />
 						<Route path="manager/signup" element={<Auth><ManagerSignup /></Auth>} />
+						<Route path="otp/signup" element={<Auth><OTPSignup /></Auth>} />
 						<Route path="agent/signup/:user_id" element={<Auth><AgentSignup /></Auth>} />
 						<Route path="login" element={<Auth><Signin /></Auth>} />
 						<Route path="*" element={<h1>Not Found</h1>} />

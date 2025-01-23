@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form';
 import ErrorAlert from '../../components/alerts/Error';
 import SuccessAlert from '../../components/alerts/Success';
 import { View, ViewOff } from '@carbon/icons-react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { API_URL } from "../../../globals.json";
+import axios from 'axios';
 
 const ManagerSignup = () => {
     const { register, control, handleSubmit, formState: {errors}, watch } = useForm();
@@ -14,36 +16,51 @@ const ManagerSignup = () => {
     const [ isDisabled, setIsDisabled ] = useState(false);
     const [ validationErrMsg, setValidationErrMsg ] = useState('');
     const [ successErrMsg, setSuccessErrMsg ] = useState('');
+    const navigate = useNavigate();
 
-    const signUp = (fields) => {
-        console.log(fields);
-        // const newData = {...fields};
-        // setIsDisabled(true);
-        // axios({
-        //     method: "POST",
-        //     url: `${API_URL}/auth/administrator/signup`,
-        //     data: newData
-        // })
-        // .then((res) => {
-        //     Cookies.set('verification_admin_user', JSON.stringify(newData), {
-        //         expires: 3
-        //     });
-        //     setSuccessErrMsg(res.data.message);
-        //     window.xuiAnimeStart('successAlert');
-        //     setTimeout(() => {
-        //         setSuccessErrMsg('Redirecting you...');
-        //         setTimeout(() => {
-        //             navigate('/verify');
-        //         }, 3600);
-        //     }, 2800);
-        // }, (err) => {
-        //     setIsDisabled(false);
-        //     setValidationErrMsg(err.response.status === 422 ? err.response.data.data[0].msg : err.response.data.message);
-        //     window.xuiAnimeStart('errorAlert');
-        //     setTimeout(() => {
-        //         window.xuiAnimeEnd('errorAlert');
-        //     }, 2800);
-        // })
+    const generateDeviceId = async () => {
+        const userAgent = navigator.userAgent;
+        const ipResponse = await fetch('https://api.ipify.org?format=json');
+        const { ip } = await ipResponse.json();
+        const data = new TextEncoder().encode(`${userAgent}-${ip}`);
+    
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+    
+        return hashHex;
+    };
+    
+    
+
+    const signUp = async (fields) => {
+        setIsDisabled(true);
+        const device_id = await generateDeviceId();
+        const newData = { ...fields, device_id };
+        console.log(newData);
+        axios({
+            method: "POST",
+            url: `${API_URL}/v1/support/register-manager`,
+            data: newData
+        })
+        .then((res) => {
+            console.log(res);
+            window.xuiAnimeStart('successAlert');
+            setSuccessErrMsg(res.data.message);
+            setTimeout(() => {
+                window.xuiAnimeEnd('successAlert');
+                setIsDisabled(false);
+                navigate('/otp/signup');
+            }, 2800);
+        }, (err) => {
+            console.log(err);
+            setIsDisabled(false);
+            setValidationErrMsg(err.response.status === 422 ? err.response.data.data[0].msg : err.response.data);
+            window.xuiAnimeStart('errorAlert');
+            setTimeout(() => {
+                window.xuiAnimeEnd('errorAlert');
+            }, 2800);
+        })
     }
     return (
         <>
@@ -52,6 +69,23 @@ const ManagerSignup = () => {
                 <p className='xui-mt-half xui-font-sz-120 xui-font-w-600'>Kindly input your details to Sign up.</p>
             </div>
             <form className="xui-form xui-mt-2" onSubmit={handleSubmit(signUp)} autoComplete="off" noValidate>
+                <div className="xui-form-box">
+                    <label htmlFor="phone_number">Phone Number</label>
+                    <input
+                        {...register('phone_number', {
+                            required: 'This field is required',
+                            pattern: {
+                                value: /^[0-9]{10,15}$/,
+                                message: 'Phone number must be 10–15 digits'
+                            }
+                        })}
+                        type="tel"
+                        name="phone_number"
+                        id="phone_number"
+                        placeholder="1234567890"
+                    />
+                    {errors.phone && <span className="xui-form-error-msg">{errors.phone.message}</span>}
+                </div>
                 <div className="xui-form-box">
                     <label htmlFor="email">Email Address</label>
                     <input {...register('email', {required: 'This field is required',pattern: {value: /^\S+@\S+$/i, message: 'Invalid email address'}})} type="email" name="email" id="email" placeholder="xyz@picadailys.com" />
@@ -80,7 +114,7 @@ const ManagerSignup = () => {
                     {!errors.password2 && password !== password2 && <span className="xui-form-error-msg">{`Password doesn't match`}</span>}
                 </div>
                 <div className="xui-form-box">
-                    <button className="xui-btn xui-btn-block primary-bg-100 xui-bdr-rad-half xui-text-white " disabled={isDisabled}>Proceed</button>
+                    <button className="xui-btn xui-btn-block primary-bg-100 xui-bdr-rad-half xui-text-white " disabled={isDisabled}>{isDisabled ? 'Authentication in progress...' : 'Proceed'}</button>
                 </div>
                 <p className='xui-text-center xui-mt-1-half'>I already have an account. <Link to='/login' className='primary-color-100 xui-font-w-600 xui-text-dc-none'>LOGIN</Link></p>
             </form>
