@@ -15,7 +15,8 @@ import Home from './pages/dashboard/Home';
 import Channel from './pages/dashboard/Channel';
 import Tickets from './pages/dashboard/Tickets';
 import ChatBot from './pages/dashboard/ChatBot';
-import Signup from './pages/onboarding/Signup';
+import AgentSignup from './pages/onboarding/AgentSignup';
+import ManagerSignup from './pages/onboarding/ManagerSignup';
 import Onboarding from './components/Onboarding';
 import Signin from './pages/onboarding/Signin';
 
@@ -27,7 +28,8 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Onboarding />}>
 						<Route path="" element={<Auth><Signin /></Auth>} />
-						<Route path="signup/:user_id" element={<Auth><Signup /></Auth>} />
+						<Route path="manager/signup" element={<Auth><ManagerSignup /></Auth>} />
+						<Route path="agent/signup/:user_id" element={<Auth><AgentSignup /></Auth>} />
 						<Route path="login" element={<Auth><Signin /></Auth>} />
 						<Route path="*" element={<h1>Not Found</h1>} />
 					</Route>

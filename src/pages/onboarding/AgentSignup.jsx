@@ -5,7 +5,7 @@ import SuccessAlert from '../../components/alerts/Success';
 import { View, ViewOff } from '@carbon/icons-react';
 import { Link, useParams } from 'react-router-dom';
 
-const Signup = () => {
+const AgentSignup = () => {
     const { register, control, handleSubmit, formState: {errors}, watch } = useForm();
     const password = watch("password");
     const password2 = watch("password2");
@@ -91,4 +91,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default AgentSignup;
