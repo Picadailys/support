@@ -46,7 +46,7 @@ const Signin = () => {
         <>
             <div>
                 <h1 className='xui-font-sz-200'>Hello,</h1>
-                <p className='xui-mt-half xui-font-sz-120 xui-font-w-600'>Kindly input your details to Sign up.</p>
+                <p className='xui-mt-half xui-font-sz-120 xui-font-w-600'>Kindly input your details to Login.</p>
             </div>
             <form className="xui-form xui-mt-2" onSubmit={handleSubmit(signIn)} autoComplete="off" noValidate>
                 <div className="xui-form-box">
