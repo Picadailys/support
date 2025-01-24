@@ -12,7 +12,6 @@ import Envelope from "./custom-icons/Envelope";
 const Dashboard = () => {
   const role = localStorage.getItem("testRole");
   console.log(role);
-
   //   role = "Agent";
 
   const menuItems = [
