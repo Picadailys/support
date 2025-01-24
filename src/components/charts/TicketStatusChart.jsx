@@ -1,17 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 import {
   Chart as ChartJS,
   ArcElement,
   Tooltip,
   Legend,
   PieController,
-} from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+} from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 // Register the necessary components for the Pie chart
 ChartJS.register(ArcElement, Tooltip, Legend, PieController, ChartDataLabels);
 
-const TicketStatusChart = ({ data }) => {
+const TicketStatusChart = ({ data, width = 400, height = 200 }) => {
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null);
 
@@ -20,10 +20,24 @@ const TicketStatusChart = ({ data }) => {
       labels: ["5%", "15%", "15%", "15%", "10%", "40%"],
       datasets: [
         {
-          label: 'Ticket Status',
+          label: "Ticket Status",
           data: [5, 15, 15, 15, 10, 40],
-          backgroundColor: ['#EADEFE', '#D9D9D9', '#F9F0DE', '#fb5e5a40', '#C5DCF2', '#F3F8FC'],
-          borderColor: ['#EADEFE', '#D9D9D9', '#F9F0DE', '#fb5e5a40', '#C5DCF2', '#F3F8FC'],
+          backgroundColor: [
+            "#EADEFE",
+            "#D9D9D9",
+            "#F9F0DE",
+            "#fb5e5a40",
+            "#C5DCF2",
+            "#F3F8FC",
+          ],
+          borderColor: [
+            "#EADEFE",
+            "#D9D9D9",
+            "#F9F0DE",
+            "#fb5e5a40",
+            "#C5DCF2",
+            "#F3F8FC",
+          ],
           borderWidth: 1,
         },
       ],
@@ -34,21 +48,21 @@ const TicketStatusChart = ({ data }) => {
       plugins: {
         legend: {
           display: false,
-          position: 'bottom',
+          position: "bottom",
         },
         datalabels: {
           display: true,
-          color: '#000',
+          color: "#000",
           font: {
             size: 6,
-            weight: 'normal',
+            weight: "normal",
           },
           formatter: (value, context) => {
             const label = context.chart.data.labels[context.dataIndex];
             return `${label}`;
           },
-          anchor: 'center',
-          align: 'center',
+          anchor: "center",
+          align: "center",
         },
       },
     };
@@ -57,9 +71,9 @@ const TicketStatusChart = ({ data }) => {
       chartInstanceRef.current.destroy();
     }
 
-    const ctx = chartRef.current.getContext('2d');
+    const ctx = chartRef.current.getContext("2d");
     chartInstanceRef.current = new ChartJS(ctx, {
-      type: 'pie',
+      type: "pie",
       data: chartData,
       options,
     });
@@ -67,7 +81,7 @@ const TicketStatusChart = ({ data }) => {
 
   return (
     <div className="chart-section">
-      <canvas ref={chartRef} width={400} height={200}></canvas>
+      <canvas ref={chartRef} width={width} height={height}></canvas>
     </div>
   );
 };

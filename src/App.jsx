@@ -1,19 +1,15 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './assets/styles/style.css'
-// import Onboarding from "./components/Onboarding";
-// import Home from './pages/dashboard/Home';
-import Dashboard from './components/Dashboard';
+import { useEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./assets/styles/style.css";
+import Dashboard from "./components/Dashboard";
 // import Forgotpassword from './pages/Forgotpassword';
 import Auth from './components/Auth';
 import ScrollToTop from './components/ScrollToTop';
-// import NotFound from './pages/NotFound';
-// import Signin from './pages/Signin';
-// import AuthPIN from './pages/AuthPIN';
-// import Forgotpassword from './pages/Forgotpassword';
-// import Newpassword from './pages/Newpassword';
+
 import Home from './pages/dashboard/Home';
 import Channel from './pages/dashboard/Channel';
-import Tickets from './pages/dashboard/Tickets';
+import TicketsPage from "./pages/dashboard/Tickets";
+import AnalyticsPage from "./pages/dashboard/Analytics";
 import ChatBot from './pages/dashboard/ChatBot';
 import AgentSignup from './pages/onboarding/AgentSignup';
 import ManagerSignup from './pages/onboarding/ManagerSignup';
@@ -22,6 +18,11 @@ import Signin from './pages/onboarding/Signin';
 import OTPSignup from './pages/onboarding/OTPSignup';
 
 function App() {
+  const role = "Manager";
+
+  useEffect(() => {
+    localStorage.setItem("testRole", role);
+  }, []);
 	return (
 		<>
 			<BrowserRouter>
@@ -39,8 +40,13 @@ function App() {
 					{/* <Route path="/dashboard" element={<Dashboard />}> */}
 						<Route index element={<Home />} />
 						<Route path='channel' element={<Channel />} />
-						<Route path='tickets' element={<Tickets />} />
-						<Route path='chat/bot' element={<ChatBot />} />
+						<Route path="tickets" element={<TicketsPage />} />
+            {role === "Manager" && (
+              <>
+                <Route path="analytics" element={<AnalyticsPage />} />
+                <Route path="chat/bot" element={<ChatBot />} />
+              </>
+            )}
 					</Route>
 				</Routes>
 			</BrowserRouter >
