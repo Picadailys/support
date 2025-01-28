@@ -50,7 +50,7 @@ const OTPSignup = () => {
             .catch((err) => {
                 console.log(err);
                 setIsDisabled(false);
-                setValidationErrMsg(err.response.status === 422 ? err.response.data.data[0].msg : err.response.data);
+                setValidationErrMsg(err.response.data.message);
                 window.xuiAnimeStart('errorAlert');
                 setTimeout(() => {
                     window.xuiAnimeEnd('errorAlert');
