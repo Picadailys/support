@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import ErrorAlert from '../../components/alerts/Error';
 import SuccessAlert from '../../components/alerts/Success';
 import { View, ViewOff } from '@carbon/icons-react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { API_URL } from "../../../globals.json";
 import axios from 'axios';
 import PinInput from "react-pin-input";
@@ -14,6 +14,7 @@ const OTPSignup = () => {
     const [ validationErrMsg, setValidationErrMsg ] = useState('');
     const [ successErrMsg, setSuccessErrMsg ] = useState('');
     const pinValue = watch('otp');
+    const navigate = useNavigate();
     
     const otpSignup = (fields) => {
         setIsDisabled(true);
@@ -28,7 +29,7 @@ const OTPSignup = () => {
             console.log(fields);
             axios({
                 method: "POST",
-                url: `${API_URL}/v1/accounts/verify-otp`,
+                url: `${API_URL}/v1/support/verifyotp`,
                 data: {
                     "otp": fields.otp
                 },
@@ -43,6 +44,7 @@ const OTPSignup = () => {
                 setTimeout(() => {
                     window.xuiAnimeEnd('successAlert');
                     setIsDisabled(false);
+                    navigate('/login');
                 }, 2800);
             })
             .catch((err) => {
