@@ -55,7 +55,8 @@ const ManagerSignup = () => {
         }, (err) => {
             console.log(err);
             setIsDisabled(false);
-            setValidationErrMsg(err.response.data.email[0] || err.response.data);
+            const errMsg = err?.response?.data?.email?.[0] || err?.response?.data?.phone_number?.[0] || err?.response?.data;
+            setValidationErrMsg(errMsg);
             window.xuiAnimeStart('errorAlert');
             setTimeout(() => {
                 window.xuiAnimeEnd('errorAlert');
