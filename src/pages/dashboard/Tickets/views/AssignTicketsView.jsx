@@ -6,6 +6,7 @@ import { ChevronSort } from "@carbon/icons-react";
 import Card from "../../../../components/Card";
 import DataFetcher from "../../../../components/DataFetcher";
 import Search from "../../../../components/custom-icons/Search";
+import TicketTable from "../../../../components/TicketTable";
 
 import { formatDate } from "../../../../utils/helpers";
 
@@ -112,7 +113,7 @@ const ticketsInfo = {
 const AssignTicketsView = () => {
   return (
     // <DataFetcher
-    //   url={`/support/get-all`}
+    //   url={`/v1/support/get-all`}
     //   buildUI={(data) => {
     //     console.log(data);
     //     const totalTicketsCount = data?.total_count;
@@ -147,7 +148,7 @@ const AssignTicketsDisplay = ({ totalTicketsCount, totalTickets }) => {
     <>
       <div className="support__assign-tickets">
         <div
-          className="xui-d-flex xui-flex-ai-center xui-flex-jc-flex-start xui-mb-4"
+          className="xui-d-flex xui-flex-dir-column xui-md-flex-dir-row xui-flex-ai-center xui-flex-jc-flex-start xui-mb-4 xui-gap-2"
           style={{ flexWrap: "nowrap", gap: "20px" }}
         >
           <Card cardColor="#FFFFFF">
@@ -195,7 +196,10 @@ const AssignTicketsDisplay = ({ totalTicketsCount, totalTickets }) => {
           </button>
         </div>
 
-        <div className="xui-d-flex xui-flex-jc-space-between xui-flex-ai-center gap-40 xui-mb-2 support__assign-tickets-search-filter">
+        <div
+          className="xui-md-d-flex xui-flex-jc-space-between xui-flex-ai-center xui-gap-4 xui-mb-2 support__assign-tickets-search-filter"
+          style={{ flexWrap: "nowrap" }}
+        >
           <div className="ticket-search xui-pos-relative xui-w-fluid-100">
             <input
               className="xui-w-fluid-100 xui-h-fluid-100"
@@ -206,11 +210,11 @@ const AssignTicketsDisplay = ({ totalTicketsCount, totalTickets }) => {
               <Search />
             </span>
           </div>
-          <div className="xui-d-flex xui-flex-jc-space-between xui-flex-ai-center xui-gap-4 pointer">
+          <div className="xui-d-flex xui-flex-jc-space-between xui-flex-ai-center gap-4 pointer xui-mt-1 xui-md-mt-none">
             <ChevronSort />
-            <div className="xui-d-flex xui-flex-jc-space-between xui-flex-ai-center xui-gap-8 fw-600 fs-14 fullwidth">
-              <p className="text-nowrap">Sort By:</p>
-              <select className="fw-600">
+            <div className="xui-d-flex xui-flex-wrap-nowrap xui-flex-jc-space-between xui-flex-ai-center xui-gap-8 fw-600 fs-14">
+              <p className="fs-12 text-nowrap">Sort By:</p>
+              <select className="fs-12 fw-600">
                 <option value="" defaultChecked selected>
                   Time
                 </option>
@@ -221,7 +225,7 @@ const AssignTicketsDisplay = ({ totalTicketsCount, totalTickets }) => {
           </div>
         </div>
 
-        <div className="support__assign-tickets-all-tickets">
+        {/* <div className="support__assign-tickets-all-tickets">
           <table>
             <thead>
               <tr>
@@ -261,6 +265,10 @@ const AssignTicketsDisplay = ({ totalTicketsCount, totalTickets }) => {
               ))}
             </tbody>
           </table>
+        </div> */}
+
+        <div className="ticket-table xui-p-1 xui-mt-2">
+          <TicketTable />
         </div>
       </div>
 

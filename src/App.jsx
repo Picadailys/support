@@ -1,57 +1,100 @@
-import { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "./assets/styles/style.css";
-import Dashboard from "./components/Dashboard";
-// import Forgotpassword from './pages/Forgotpassword';
-import Auth from './components/Auth';
-import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from "./components/ScrollToTop";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-import Home from './pages/dashboard/Home';
-import Channel from './pages/dashboard/Channel';
+import Auth from "./components/Auth";
+import Onboarding from "./components/Onboarding";
+import AgentSignUpPage from "./pages/onboarding/AgentSignupPage";
+import ManagerSignUpPage from "./pages/onboarding/ManagerSignupPage";
+import SignInPage from "./pages/onboarding/SigninPage";
+import VerifyOTPPage from "./pages/onboarding/VerifyOTPPage";
+// import Forgotpassword from './pages/Forgotpassword';
+
+import Dashboard from "./components/Dashboard";
+import Home from "./pages/dashboard/Home";
+import Channel from "./pages/dashboard/Channel";
 import TicketsPage from "./pages/dashboard/Tickets";
 import AnalyticsPage from "./pages/dashboard/Analytics";
-import ChatBot from './pages/dashboard/ChatBot';
-import AgentSignup from './pages/onboarding/AgentSignup';
-import ManagerSignup from './pages/onboarding/ManagerSignup';
-import Onboarding from './components/Onboarding';
-import Signin from './pages/onboarding/Signin';
-import OTPSignup from './pages/onboarding/OTPSignup';
+import ChatBot from "./pages/dashboard/ChatBot";
+import { getSupportRole } from "./config/axiosConfig";
 
 function App() {
-  const role = "Manager";
+  const supportRole = getSupportRole();
 
-  useEffect(() => {
-    localStorage.setItem("testRole", role);
-  }, []);
-	return (
-		<>
-			<BrowserRouter>
-				<ScrollToTop />
-				<Routes>
-					<Route path="/" element={<Onboarding />}>
-						<Route path="" element={<Auth><Signin /></Auth>} />
-						<Route path="manager/signup" element={<Auth><ManagerSignup /></Auth>} />
-						<Route path="otp/signup" element={<Auth><OTPSignup /></Auth>} />
-						<Route path="agent/signup/:user_id" element={<Auth><AgentSignup /></Auth>} />
-						<Route path="login" element={<Auth><Signin /></Auth>} />
-						<Route path="*" element={<h1>Not Found</h1>} />
-					</Route>
-					<Route path="/dashboard" element={<Dashboard />}>
-					{/* <Route path="/dashboard" element={<Dashboard />}> */}
-						<Route index element={<Home />} />
-						<Route path='channel' element={<Channel />} />
-						<Route path="tickets" element={<TicketsPage />} />
-            {role === "Manager" && (
-              <>
-                <Route path="analytics" element={<AnalyticsPage />} />
-                <Route path="chat/bot" element={<ChatBot />} />
-              </>
-            )}
-					</Route>
-				</Routes>
-			</BrowserRouter >
-		</>
-	)
+  return (
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Onboarding />}>
+          <Route path="/" element={<RedirectToLogin />} />
+
+          <Route
+            path=""
+            element={
+              <Auth>
+                <SignInPage />
+              </Auth>
+            }
+          />
+          <Route
+            path="manager/signup"
+            element={
+              <Auth>
+                <ManagerSignUpPage />
+              </Auth>
+            }
+          />
+          <Route
+            path="verify-otp"
+            element={
+              <Auth>
+                <VerifyOTPPage />
+              </Auth>
+            }
+          />
+          <Route
+            path="agent/signup"
+            element={
+              <Auth>
+                <AgentSignUpPage />
+              </Auth>
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <Auth>
+                <SignInPage />
+              </Auth>
+            }
+          />
+          <Route path="*" element={<h1>Not Found</h1>} />
+        </Route>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        >
+          {/* <Route path="/dashboard" element={<Dashboard />}> */}
+          <Route index element={<Home />} />
+          <Route path="channel" element={<Channel />} />
+          <Route path="tickets" element={<TicketsPage />} />
+          {supportRole === "Manager" && (
+            <>
+              <Route path="analytics" element={<AnalyticsPage />} />
+              <Route path="chat/bot" element={<ChatBot />} />
+            </>
+          )}
+        </Route>
+      </Routes>
+    </>
+  );
 }
+
+const RedirectToLogin = () => <Navigate to="/login" replace />;
 
 export default App;

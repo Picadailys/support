@@ -1,18 +1,19 @@
 /* eslint-disable react/no-unknown-property */
+import React, { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+
 import { Logout } from "@carbon/icons-react";
 import FullLogo from "../assets/images/full-logo.png";
 import Settings from "./custom-icons/Settings";
 import Bell from "./custom-icons/Bell";
-import React, { useState } from "react";
 import SupportIcon from "./custom-icons/SupportIcon";
 import ChevronDown from "./custom-icons/ChevronDown";
 import Envelope from "./custom-icons/Envelope";
 
+import { getSupportRole } from "../config/axiosConfig";
+
 const Dashboard = () => {
-  const role = localStorage.getItem("testRole");
-  console.log(role);
-  //   role = "Agent";
+  const supportRole = getSupportRole();
 
   const menuItems = [
     {
@@ -22,27 +23,32 @@ const Dashboard = () => {
       icon2: <ChevronDown />,
       dropdown: true,
       subItems: [
-        { name: "Dashboard", link: "/", customStyle: "grey-color" },
-        { name: "Channel", link: "/channel", customStyle: "grey-color" },
-        { name: "Tickets", link: "/tickets", customStyle: "grey-color" },
-        ...(role === "Manager"
+        { name: "Dashboard", link: "/dashboard", customStyle: "grey-color" },
+        {
+          name: "Channel",
+          link: "/dashboard/channel",
+          customStyle: "grey-color",
+        },
+        {
+          name: "Tickets",
+          link: "/dashboard/tickets",
+          customStyle: "grey-color",
+        },
+        ...(supportRole === "Manager"
           ? [
               {
                 name: "Analytics",
-                link: "/analytics",
+                link: "/dashboard/analytics",
                 customStyle: "grey-color",
               },
             ]
           : []),
-        ...(role === "Manager"
-          ? [
-              {
-                name: "Chat Bot",
-                link: "/chat/bot",
-                customStyle: "grey-color",
-              },
-            ]
-          : []),
+        {
+          name: "Chat Bot",
+          link: "/dashboard/chat/bot",
+          customStyle: "grey-color",
+        },
+        ,
       ],
     },
     {
@@ -50,7 +56,7 @@ const Dashboard = () => {
       isLink: true,
       customStyle: "grey-color",
       icon: <Settings />,
-      link: "/settings",
+      link: "/dashboard/settings",
       dropdown: false,
     },
   ];
@@ -69,8 +75,8 @@ const Dashboard = () => {
         <div className="navigator xui-text-white">
           <div className="brand xui-px-1-half xui-py-half grey-bg">
             <div className="maxified xui-d-flex xui-flex-ai-center">
-              <a
-                href="./"
+              <Link
+                to={"./"}
                 className="xui-text-inherit xui-text-dc-none xui-font-w-bold"
               >
                 <img
@@ -78,7 +84,7 @@ const Dashboard = () => {
                   alt="Hensard Logo"
                   className="xui-img-150"
                 />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="links xui-pt-3">
@@ -94,7 +100,7 @@ const Dashboard = () => {
               >
                 <h3 className="xui-font-sz-110">Sim Batista</h3>
                 <p className="xui-opacity-7 xui-mt-half xui-font-sz-75 xui-d-flex xui-flex-ai-center xui-grid-gap-half">
-                  {role}
+                  {supportRole}
                   <span
                     style={{ width: "2px", height: "2px" }}
                     className="xui-d-inline-block xui-bg-white xui-bdr-rad-circle"
