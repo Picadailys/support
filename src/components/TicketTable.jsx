@@ -15,12 +15,22 @@ const TicketTable = () => {
       category: "Wallet",
       priority: (
         <>
-          <span className="xui-p-half xui-font-sz-80 xui-bdr-rad-half error-bg-100 xui-text-white">
+          <span className="xui-p-half xui-font-sz-70 xui-bdr-rad-half error-bg-100 xui-text-white xui-flex-wrap-nowrap">
             High Priority
           </span>
         </>
       ),
       dateCreated: "2024-01-01",
+      action: (
+        <>
+          <div
+            className="xui-p-half xui-font-sz-80 xui-bdr-rad-half primary-bg-100 xui-text-white"
+            // onClick={() => handleSelectTicket(info.ticketId, info)}
+          >
+            Assign
+          </div>
+        </>
+      ),
       status: (
         <>
           <div className="xui-d-flex xui-flex-jc-space-between xui-flex-ai-center">
@@ -54,12 +64,22 @@ const TicketTable = () => {
       category: "Wallet",
       priority: (
         <>
-          <span className="xui-p-half xui-font-sz-80 xui-bdr-rad-half secondary-bg-60 xui-text-white">
+          <span className="xui-p-half xui-font-sz-70 xui-bdr-rad-half secondary-bg-60 xui-text-white">
             Low Priority
           </span>
         </>
       ),
       dateCreated: "2024-02-15",
+      action: (
+        <>
+          <div
+            className="xui-p-half xui-font-sz-80 xui-bdr-rad-half primary-bg-100 xui-text-white"
+            // onClick={() => handleSelectTicket(info.ticketId, info)}
+          >
+            Assign
+          </div>
+        </>
+      ),
       status: (
         <>
           <div className="xui-d-flex xui-flex-jc-space-between xui-flex-ai-center">
@@ -84,12 +104,22 @@ const TicketTable = () => {
       category: "Wallet",
       priority: (
         <>
-          <span className="xui-p-half xui-font-sz-80 xui-bdr-rad-half secondary-bg-60 xui-text-white">
+          <span className="xui-p-half xui-font-sz-70 xui-flex-wrap-nowrap xui-bdr-rad-half secondary-bg-60 xui-text-white">
             High Priority
           </span>
         </>
       ),
       dateCreated: "2024-03-10",
+      action: (
+        <>
+          <div
+            className="xui-p-half xui-font-sz-80 xui-bdr-rad-half primary-bg-100 xui-text-white"
+            // onClick={() => handleSelectTicket(info.ticketId, info)}
+          >
+            Assign
+          </div>
+        </>
+      ),
       status: (
         <>
           <div className="xui-d-flex xui-flex-jc-space-between xui-flex-ai-center">
@@ -121,6 +151,7 @@ const TicketTable = () => {
     { label: "Category", key: "category", sortable: true },
     { label: "Priority", key: "priority", sortable: true },
     { label: "Date Created", key: "dateCreated", sortable: false },
+    { label: "Action", key: "action", sortable: false },
     { label: "Status", key: "status", sortable: true },
   ];
 
@@ -157,9 +188,14 @@ const TicketTable = () => {
     return <CaretUp size="20" />; // Default neutral arrow when the column is sortable
   };
   return (
-    <>
+    <div style={{ overflowX: "auto", width: "100%" }}>
       <table
-        style={{ width: "100%", textAlign: "left", borderCollapse: "collapse" }}
+        style={{
+          minWidth: "1000px",
+          width: "100%",
+          textAlign: "left",
+          borderCollapse: "collapse",
+        }}
       >
         <thead>
           <tr>
@@ -201,7 +237,7 @@ const TicketTable = () => {
           hELLO
         </Modal>
       )}
-    </>
+    </div>
   );
 };
 

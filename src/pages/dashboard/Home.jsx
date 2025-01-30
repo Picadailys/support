@@ -6,8 +6,10 @@ import ThumbsUpIcon from "../../components/custom-icons/ThumbsUpIcon";
 import FluentIcon from "../../components/custom-icons/FluentIcon";
 import ThumbsDownIcon from "../../components/custom-icons/ThumbsDownIcon";
 
+import { getSupportRole } from "../../config/axiosConfig";
+
 const Home = () => {
-  const role = localStorage.getItem("testRole");
+  const supportRole = getSupportRole();
 
   return (
     <>
@@ -273,7 +275,7 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                {role === "Manager" && (
+                {supportRole === "Manager" && (
                   <button className="primary-bg-100 xui-mt-1 xui-bdr-rad-1 xui-px-2 xui-py-2-half xui-text-white xui-text-center">
                     <h3 className="xui-font-sz-90 xui-font-w-500">
                       Create New Tickets

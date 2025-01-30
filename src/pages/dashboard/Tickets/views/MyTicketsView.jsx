@@ -8,10 +8,7 @@ import TicketMember from "../../../../components/TicketMember";
 const MyTicketsView = () => {
   return (
     <section className="ticket-section-holder xui-d-flex xui-mt-1">
-      <div
-        className="ticket-left xui-pt-1-half xui-pl-1-half"
-        // style={{ position: "static" }}
-      >
+      <div className="ticket-left xui-pl-1-half" style={{ top: "200px" }}>
         <div
           className="xui-h-fluid-100 xui-overflow-y-auto box-shadow-1"
           style={{ borderRadius: "16px 0 0 0" }}
@@ -61,10 +58,7 @@ const MyTicketsView = () => {
           </div>
         </div>
       </div>
-      <div
-        className="ticket-right"
-        // style={{ position: "static" }}
-      >
+      <div className="ticket-right" style={{ top: "200px" }}>
         <div className="xui-h-fluid-100">
           <div className="ticket-top-chat-header xui-p-1 xui-bg-white xui-w-fluid-100">
             <div className="xui-d-flex xui-flex-ai-center">
@@ -97,7 +91,10 @@ const MyTicketsView = () => {
               <p className="xui-font-sz-80 xui-mt-1-half">Resolve</p>
             </Dropdown>
           </div>
-          <section className="ticket-chat-panel xui-d-inline-flex">
+          <section
+            className="ticket-chat-panel xui-d-inline-flex"
+            style={{ top: "200px" }}
+          >
             {/* <h3 className='xui-pos-absolute' style={{top: '70px', left: '50%', transform: 'translate(-50%)'}}>Today</h3> */}
             <div className="xui-d-flex xui-flex-jc-flex-end xui-mt-2">
               <div>
