@@ -18,3 +18,18 @@ export function formatDate(date) {
   const year = date.getFullYear();
   return `${day} ${month}, ${year}`;
 }
+
+export const generateDeviceId = async () => {
+  const userAgent = navigator.userAgent;
+  const ipResponse = await fetch("https://api.ipify.org?format=json");
+  const { ip } = await ipResponse.json();
+  const data = new TextEncoder().encode(`${userAgent}-${ip}`);
+
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
+
+  return hashHex;
+};

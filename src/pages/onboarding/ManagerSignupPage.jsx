@@ -1,16 +1,18 @@
 import React, { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+
 import ErrorAlert from "../../components/alerts/Error";
 import SuccessAlert from "../../components/alerts/Success";
 import { View, ViewOff } from "@carbon/icons-react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+
 import { API_URL } from "../../../globals.json";
-import axios from "axios";
+import { generateDeviceId } from "../../utils/helpers";
 
 const ManagerSignUpPage = () => {
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
     watch,
@@ -24,33 +26,16 @@ const ManagerSignUpPage = () => {
   const [successErrMsg, setSuccessErrMsg] = useState("");
   const navigate = useNavigate();
 
-  const generateDeviceId = async () => {
-    const userAgent = navigator.userAgent;
-    const ipResponse = await fetch("https://api.ipify.org?format=json");
-    const { ip } = await ipResponse.json();
-    const data = new TextEncoder().encode(`${userAgent}-${ip}`);
-
-    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray
-      .map((byte) => byte.toString(16).padStart(2, "0"))
-      .join("");
-
-    return hashHex;
-  };
-
   const signUp = async (fields) => {
     setIsDisabled(true);
     const device_id = await generateDeviceId();
     const newData = { ...fields, device_id };
-    console.log(newData);
     axios({
       method: "POST",
       url: `${API_URL}/v1/support/register-manager`,
       data: newData,
     }).then(
       (res) => {
-        console.log(res);
         window.xuiAnimeStart("successAlert");
         setSuccessErrMsg(res.data.message);
         setTimeout(() => {
@@ -60,7 +45,6 @@ const ManagerSignUpPage = () => {
         }, 2800);
       },
       (err) => {
-        console.log(err);
         setIsDisabled(false);
         setValidationErrMsg(
           err.response.data.email[0] ||
