@@ -294,6 +294,10 @@ input:-webkit-autofill, input:-webkit-autofill:focus input:-webkit-autofill, inp
   opacity: 0.95;
   padding: 20px;
   width: 400px;
+
+  @media (max-width: 425px) {
+    width: 300px;
+  }
 }
 
 /* Modal End */

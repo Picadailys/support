@@ -9,6 +9,7 @@ import AgentSignUpPage from "./pages/onboarding/AgentSignupPage";
 import ManagerSignUpPage from "./pages/onboarding/ManagerSignupPage";
 import SignInPage from "./pages/onboarding/SigninPage";
 import VerifyOTPPage from "./pages/onboarding/VerifyOTPPage";
+import CreatePINPage from "./pages/onboarding/CreatePINPage";
 // import Forgotpassword from './pages/Forgotpassword';
 
 import Dashboard from "./components/Dashboard";
@@ -17,6 +18,7 @@ import Channel from "./pages/dashboard/Channel";
 import TicketsPage from "./pages/dashboard/Tickets";
 import AnalyticsPage from "./pages/dashboard/Analytics";
 import ChatBot from "./pages/dashboard/ChatBot";
+
 import { getSupportRole } from "./config/axiosConfig";
 
 function App() {
@@ -66,6 +68,14 @@ function App() {
             element={
               <Auth>
                 <SignInPage />
+              </Auth>
+            }
+          />
+          <Route
+            path="create-pin"
+            element={
+              <Auth>
+                <CreatePINPage />
               </Auth>
             }
           />

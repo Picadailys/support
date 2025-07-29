@@ -31,15 +31,22 @@ const SignInPage = () => {
     try {
       const { data } = await axios.post(`${API_URL}/v1/support/login`, fields);
       const { access, refresh } = data.tokens;
-      const { roles } = data.user_data;
+      const { roles, is_admin_pin_set } = data.user_data;
+      console.log(roles);
       setTokens({ access, refresh });
       setSupportRole(roles[0]);
-      setSuccessErrMsg(data.message);
-      window.xuiAnimeStart("successAlert");
-      setTimeout(() => {
-        setSuccessErrMsg("Logging in ...");
-        setTimeout(() => navigate("/dashboard"), 3600);
-      }, 2800);
+
+      if (is_admin_pin_set) {
+        setSuccessErrMsg(data.message);
+        window.xuiAnimeStart("successAlert");
+        setTimeout(() => {
+          setSuccessErrMsg("Logging in ...");
+          setTimeout(() => navigate("/dashboard"), 3600);
+        }, 2800);
+      } else {
+        setSuccessErrMsg("Proceed to create PIN");
+        setTimeout(() => navigate("/create-pin"), 1500);
+      }
     } catch (err) {
       setIsDisabled(false);
       setValidationErrMsg(
